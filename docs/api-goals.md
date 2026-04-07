@@ -9,4 +9,4 @@
 | Manage runs | Get run details | run id | run | Get details of a run | Users |
 | Manage runs | Edit run | date, distance, duration, pace | run | Update existing run | Users |
 | Manage runs | Delete run | run id | - | Delete existing run | Users |
-| Analyze performance | View statistics | user id | stats (total distance, avg pace, total runs) | Track progress
+| Analyze performance | View statistics | user id | stats (total distance, avg pace, total runs) | Track progress |
