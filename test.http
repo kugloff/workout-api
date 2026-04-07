@@ -1,0 +1,12 @@
+### Get authenticated users
+GET http://localhost:8000/api/user
+Accept: application/json
+
+### Get runs
+GET http://localhost:8000/api/runs
+Accept: application/json
+
+### Create run session
+POST http://localhost:8000/api/runs
+Accept: application/json
+Content-Type: application/json
