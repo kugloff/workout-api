@@ -11,16 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('runs', function (Blueprint $table) {
+        Schema::create('goals', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->date('date');
-            $table->float('distance'); //km
-            $table->integer('duration'); //minutes
-            $table->float('pace')->nullable(); //min/km
+            $table->float('target_distance');
+            $table->integer('target_time');
             $table->timestamps();
-            $table->foreignId('route_id')->nullable()->constrained()->nullOnDelete();
-            $table->string('image')->nullable();
         });
     }
 
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('runs');
+        Schema::dropIfExists('goals');
     }
 };

@@ -10,3 +10,8 @@
 | Manage runs | Edit run | date, distance, duration, pace | run | Update existing run | Users |
 | Manage runs | Delete run | run id | - | Delete existing run | Users |
 | Analyze performance | View statistics | user id | stats (total distance, avg pace, total runs) | Track progress |
+| Manage goals | Create goal | target distance, target time | goal | Set running goal | Users |
+| Manage routes | Create route | name, distance, description | route | Define running route | Admin |
+| Manage tags | Create tag | name | tag | Categorize runs | Admin |
+| Tag runs | Attach tag to run | run id, tag id | run_tag | Label running session | Users |
+| Upload run image | Upload file | image file | image path | Store run image | Users |

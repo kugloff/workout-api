@@ -16,7 +16,7 @@ Route::get('runs', function(){
     return new Resources\RunCollection($runs);
 });
 
-Route::get('post', [Controllers\RunController::class, 'index']);
+Route::get('run', [Controllers\RunController::class, 'index']);
 
 //ezt át lehet tenni a RunControllerbe
 Route::post('runs', function(Request $request){
