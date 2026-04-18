@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('runs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('route_id')->nullable()->constrained()->nullOnDelete();
             $table->date('date');
             $table->float('distance'); //km
             $table->integer('duration'); //minutes
             $table->float('pace')->nullable(); //min/km
             $table->timestamps();
-            $table->foreignId('route_id')->nullable()->constrained()->nullOnDelete();
             $table->string('image')->nullable();
         });
     }
