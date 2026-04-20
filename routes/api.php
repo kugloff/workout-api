@@ -3,9 +3,12 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Models\Run;
-use App\Http\Resources;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RunController;
+use App\Http\Controllers\TagController;
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
 
@@ -13,15 +16,11 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
 
-    Route::apiResource('runs', RunController::class);
-});
-
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
-
-Route::middleware('auth:sanctum')->group(function () {
-
     Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::apiResource('runs', RunController::class);
+
+    Route::post('/tags', [TagController::class, 'store']);
+    Route::post('/runs/{id}/tags', [RunController::class, 'attachTag']);
+    Route::delete('/runs/{id}/tags', [RunController::class, 'detachTag']);
 });

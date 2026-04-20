@@ -74,3 +74,33 @@ Content-Type: application/json
 ### Delete run
 DELETE http://localhost:8000/api/runs/1
 Authorization: Bearer 3|eG54TuziMjbunyo1Z9Ibu3gvC0SiukbBgXZzDS4g6a5eee2a
+
+
+### Create tag (admin only)
+POST http://localhost:8000/api/tags
+Authorization: Bearer YOUR_TOKEN
+Content-Type: application/json
+
+{
+  "name": "interval"
+}
+
+
+### Attach tag to run
+POST http://localhost:8000/api/runs/1/tags
+Authorization: Bearer 3|eG54TuziMjbunyo1Z9Ibu3gvC0SiukbBgXZzDS4g6a5eee2a
+Content-Type: application/json
+
+{
+  "tag_id": 1
+}
+
+
+### Detach tag from run
+DELETE http://localhost:8000/api/runs/1/tags
+Authorization: Bearer 3|eG54TuziMjbunyo1Z9Ibu3gvC0SiukbBgXZzDS4g6a5eee2a
+Content-Type: application/json
+
+{
+  "tag_id": 1
+}
