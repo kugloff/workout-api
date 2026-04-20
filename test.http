@@ -1,12 +1,76 @@
-### Get authenticated users
-GET http://localhost:8000/api/user
-Accept: application/json
-
-### Get runs
-GET http://localhost:8000/api/runs
-Accept: application/json
-
-### Create run session
-POST http://localhost:8000/api/runs
-Accept: application/json
+### Register
+POST http://localhost:8000/api/register
 Content-Type: application/json
+
+{
+  "name": "Test User",
+  "email": "test@test.com",
+  "password": "123456"
+}
+
+
+### Login
+POST http://localhost:8000/api/login
+Content-Type: application/json
+
+{
+  "email": "test@test.com",
+  "password": "123456"
+}
+
+
+### Get authenticated user
+GET http://localhost:8000/api/user
+Authorization: Bearer 3|eG54TuziMjbunyo1Z9Ibu3gvC0SiukbBgXZzDS4g6a5eee2a
+Accept: application/json
+
+
+### Get all runs
+GET http://localhost:8000/api/runs
+Authorization: Bearer 3|eG54TuziMjbunyo1Z9Ibu3gvC0SiukbBgXZzDS4g6a5eee2a
+Accept: application/json
+
+
+### Get single run
+GET http://localhost:8000/api/runs/1
+Authorization: Bearer 3|eG54TuziMjbunyo1Z9Ibu3gvC0SiukbBgXZzDS4g6a5eee2a
+Accept: application/json
+
+
+### Create run
+POST http://localhost:8000/api/runs
+Authorization: Bearer 3|eG54TuziMjbunyo1Z9Ibu3gvC0SiukbBgXZzDS4g6a5eee2a
+Content-Type: application/json
+
+{
+  "date": "2025-04-18",
+  "distance": 5,
+  "duration": 30
+}
+
+
+### Create run (with image)
+POST http://localhost:8000/api/runs
+Authorization: Bearer 3|eG54TuziMjbunyo1Z9Ibu3gvC0SiukbBgXZzDS4g6a5eee2a
+Content-Type: multipart/form-data
+
+date=2025-04-18
+distance=5
+duration=30
+image=@C:\path\img.jpg
+
+
+### Update run
+PUT http://localhost:8000/api/runs/1
+Authorization: Bearer 3|eG54TuziMjbunyo1Z9Ibu3gvC0SiukbBgXZzDS4g6a5eee2a
+Content-Type: application/json
+
+{
+  "distance": 10,
+  "duration": 55
+}
+
+
+### Delete run
+DELETE http://localhost:8000/api/runs/1
+Authorization: Bearer 3|eG54TuziMjbunyo1Z9Ibu3gvC0SiukbBgXZzDS4g6a5eee2a

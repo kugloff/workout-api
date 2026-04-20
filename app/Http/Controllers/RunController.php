@@ -12,7 +12,9 @@ class RunController extends Controller
      */
     public function index()
     {
-        //
+        return Run::with(['route', 'tags'])
+            ->where('user_id', auth()->id())
+            ->get();
     }
 
     /**
@@ -20,7 +22,24 @@ class RunController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'date' => 'required|date',
+            'distance' => 'required|numeric',
+            'duration' => 'required|integer',
+            'route_id' => 'nullable|exists:routes,id',
+            'image' => 'nullable|image|max:2048'
+        ]);
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('runs', 'public');
+            $validated['image'] = $path;
+        }
+
+        $validated['user_id'] = auth()->id();
+
+        $run = Run::create($validated);
+
+        return response()->json($run, 201);
     }
 
     /**
@@ -28,7 +47,11 @@ class RunController extends Controller
      */
     public function show(Run $run)
     {
-        //
+        $run = Run::with(['route', 'tags'])
+            ->where('user_id', auth()->id())
+            ->findOrFail($id);
+
+        return response()->json($run);
     }
 
     /**
@@ -36,7 +59,24 @@ class RunController extends Controller
      */
     public function update(Request $request, Run $run)
     {
-        //
+        $run = Run::where('user_id', auth()->id())->findOrFail($id);
+
+        $validated = $request->validate([
+            'date' => 'sometimes|date',
+            'distance' => 'sometimes|numeric',
+            'duration' => 'sometimes|integer',
+            'route_id' => 'nullable|exists:routes,id',
+            'image' => 'nullable|image|max:2048'
+        ]);
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('runs', 'public');
+            $validated['image'] = $path;
+        }
+
+        $run->update($validated);
+
+        return response()->json($run);
     }
 
     /**
@@ -44,6 +84,9 @@ class RunController extends Controller
      */
     public function destroy(Run $run)
     {
-        //
+        $run = Run::where('user_id', auth()->id())->findOrFail($id);
+        $run->delete();
+
+        return response()->json(['message' => 'Deleted']);
     }
 }

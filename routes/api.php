@@ -5,27 +5,23 @@ use Illuminate\Support\Facades\Route;
 
 use App\Models\Run;
 use App\Http\Resources;
+use App\Http\Controllers\AuthController;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::middleware('auth:sanctum')->group(function () {
 
-Route::get('runs', function(){
-    $runs = Run::orderBy('date')->get();
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
 
-    return new Resources\RunCollection($runs);
+    Route::apiResource('runs', RunController::class);
 });
 
-Route::get('run', [Controllers\RunController::class, 'index']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
 
-//ezt át lehet tenni a RunControllerbe
-Route::post('runs', function(Request $request){
-    $request->validate([
-        
-    ]);
-    $user = User::inRandomOrder()->first();
+Route::middleware('auth:sanctum')->group(function () {
 
-    $run = $user->runs()->create($request->all());
+    Route::post('/logout', [AuthController::class, 'logout']);
 
-    return new Resources\Run($run);
+    Route::apiResource('runs', RunController::class);
 });
